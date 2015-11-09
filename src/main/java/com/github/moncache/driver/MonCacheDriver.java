@@ -34,7 +34,7 @@ public class MonCacheDriver {
 
         DBObject resultDocument = Formatter.fromString((String) dbResult);
 
-        if (resultDocument.containsField("status") && resultDocument.get("status").equals("ok") && resultDocument.containsField("data")) {
+        if (resultDocument.containsField("data")) {
             return resultDocument;
         }
 
@@ -69,7 +69,7 @@ public class MonCacheDriver {
         List<DBObject> documents = new ArrayList<DBObject>();
 
         for (int i = 0; i < dbDocuments.size(); i++) {
-            dbDocuments.add(documents.get(i));
+            documents.add((DBObject) dbDocuments.get(i));
         }
 
         return documents;

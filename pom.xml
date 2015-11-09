@@ -9,6 +9,12 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>org.mongodb</groupId>
@@ -29,6 +35,11 @@
       <groupId>com.intersys.globals</groupId>
       <artifactId>cache-extreme</artifactId>
       <version>2015.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.nsnjson</groupId>
+      <artifactId>nsnjson-java-driver</artifactId>
+      <version>v0.0.5</version>
     </dependency>
   </dependencies>
 
@@ -54,6 +65,14 @@
               <value>${env.MONCACHE_PASSWORD}</value>
             </systemProperty>
           </systemProperties>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>

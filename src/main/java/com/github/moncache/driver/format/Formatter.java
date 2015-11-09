@@ -1,8 +1,11 @@
 package com.github.moncache.driver.format;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mongodb.DBObject;
+
+import java.util.Optional;
 
 /**
  * Converts {Document} <-> {String}
@@ -15,7 +18,7 @@ public class Formatter {
    * @return document MON (MonCache Object Notation) as string
    */
   public static String toString(DBObject document) {
-    return FormatEncoder.encode(document).toString();
+    return encode(document).get().toString();
   }
 
   /**
@@ -25,9 +28,18 @@ public class Formatter {
    */
   public static DBObject fromString(String string) {
     try {
-      return (DBObject) FormatDecoder.decode((ObjectNode) new ObjectMapper().readTree(string));
+      return (DBObject) decode(new ObjectMapper().readTree(string)).get();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
+
+  public static Optional<JsonNode> encode(Object data) {
+    return new MonCacheEncoding().encodeDynamic(data);
+  }
+
+  public static Optional<Object> decode(JsonNode presentation) {
+    return new MonCacheDecoding().decodeDynamic(presentation);
+  }
+
 }
